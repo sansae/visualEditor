@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>Predict Spring: Visual Editor Challenge</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="myVisualEditor.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="myScript.js"></script>
+
+  </head>
+
+  <body>
+    <div class="container editor">
+      <!--1st outer row-->
+      <div class="row">
+        <!--first inner row-->
+        <div class="row">
+          <div class="col-xs-2">
+          </div>
+          <div class="col-xs-8">
+            <h3>Visual Editor</h3>
+          </div>
+          <div class="col-xs-2">
+          </div>
+        </div><!--end of 1st inner row-->
+        <!--second inner row-->
+        <div class="row line">
+          <hr>
+        </div><!--end of second inner row-->
+      </div><!--end of 1st outer row-->
+
+      <!--action row-->
+      <div class="row action">
+        <div class="col-xs-6">
+          <button onClick="save()">Save</button>
+          <button onClick="load()">Load</button>
+          <button onClick="clearLayout()">Clear Layout</button>
+          <!-- <button onClick="clearLayout()">Clear</button> -->
+          <button onClick="addCell()">Add Cell</button>
+          <button onClick="removeCell()">Delete Cell</button>
+          <select id="dropDown">
+          </select>
+        </div>
+        <div class="col-xs-6">
+          <button onClick="unSplit()" id="unSplitBtn">Unsplit</button>
+          <button onClick="splitVertical()" id="vertBtn">Split Vertical</button>
+          <button onClick="splitHorizontal()" id="horBtn">Split Horizontal</button>
+          <select id="selectCell">
+            <option value="" disabled selected>Select a Cell</option>
+            <option value="cell1">Cell 1</option>
+            <option value="cell2">Cell 2</option>
+            <option value="cell3">Cell 3</option>
+          </select>
+          <button onClick="unSplit()" id="unSplitBtn">Unsplit Cell</button>
+        </div>
+      </div>
+
+
+      <!--1.5 outer row-->
+      <div class="row midOuter">
+        <div class="col-xs-6">
+          <p>Drag an image from this column!</p>
+        </div>
+        <div class="col-xs-6">
+          <p>Drop the image on any cell in this column!</p>
+        </div>
+      </div><!--end of midOuter row-->
+
+      <!--2nd outer row-->
+      <div class="row secondOuter">
+        <div class="col-xs-6">
+          <img  src="http://r.ddmcdn.com/s_f/o_1/cx_633/cy_0/cw_1725/ch_1725/w_720/APL/uploads/2014/11/too-cute-doggone-it-video-playlist.jpg" id="img1" class="img-responsive center-block editor-img" draggable="true" ondragstart="drag(event)">
+        </div>
+        <div class="col-xs-6 layout" >
+          <div ondrop="drop(event)" ondragover="allowDrop(event)" id="div1"></div>
+        </div>
+      </div><!--end of 2nd outer row-->
+
+      <!--3rd outer row-->
+      <div class="row thirdOuter">
+        <div class="col-xs-6">
+          <img  src="http://cdn3-www.dogtime.com/assets/uploads/gallery/goldador-dog-breed-pictures/puppy-1.jpg" id="img2" class="img-responsive center-block editor-img" draggable="true" ondragstart="drag(event)">
+        </div>
+        <div class="col-xs-6 layout">
+          <div ondrop="drop(event)" ondragover="allowDrop(event)" id="div2"></div>
+        </div>
+      </div><!--end of 3rd outer row-->
+
+      <!--4th outer row-->
+      <div class="row fourthOuter">
+        <div class="col-xs-6">
+          <img src="https://static01.nyt.com/images/2016/08/10/science/10tb-dogsperm02/10tb-dogsperm02-master675.jpg" id = "img3" class="img-responsive center-block editor-img" draggable="true" ondragstart="drag(event)">
+        </div>
+        <div class="col-xs-6 layout">
+          <div ondrop="drop(event)" ondragover="allowDrop(event)" id="div3"></div>
+        </div>
+      </div><!--end of 4th outer row-->
+
+      <!--nth outer row-->
+      <div class="row nthOuter">
+        <div class="col-xs-6">
+        </div>
+        <div class="col-xs-6 layout">
+          <span ondrop="drop(event)" ondragover="allowDrop(event)" id="newCell"></span>
+        </div>
+      </div><!--end of nth outer row-->
+    </div><!--end of editor-->
+  </body>
+</html>

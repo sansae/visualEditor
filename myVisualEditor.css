@@ -1,0 +1,66 @@
+/*this vcenter class helps to vertically align (i.e. centers it perfectly in the middle of the parent row div) the col-xs-8 div. Without it, the col-xs-8 div hugs the top of the row div. Apparently, CSS's flexible box (aka Flexbox) layout helps with this vertical alignment issue that many aspiring web developers seem to have. Source: http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3*/
+.vcenter {
+  margin-right: -4px;
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+h3 {
+  text-align: center;
+}
+
+.line {
+  margin-top:-15px;
+}
+
+hr {
+  width: 80%;
+  height: 1px;
+  background: #fff;
+  border-color: black;
+  background-color: black;
+}
+
+.action {
+  background-color:blue;
+  margin: 0px 20px 20px 20px;
+  padding: 30px 0px 30px 30px;
+}
+
+.midOuter {
+  text-align: center;
+}
+
+.secondOuter {
+  margin-top: 10px;
+}
+
+.thirdOuter, .fourthOuter, .fifthOuter, .nthOuter {
+  margin-top:15px;
+}
+
+.editor-img {
+  width: 120px;
+  height: 120px;
+}
+
+.editor {
+  background-color: lightgrey;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 0px;
+  padding-bottom: 20px;
+  width: 400px;
+}
+
+.editor, img, .layout div, .action {
+  border: 1px solid black;
+  /*border-radius: 15px;*/
+}
+
+.layout div {
+  height: 120px;
+  width: 120px;
+  margin: auto;
+}
