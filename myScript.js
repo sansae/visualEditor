@@ -65,6 +65,8 @@ function clearLayout() {
   document.getElementById("div1").innerHTML = "";
   document.getElementById("div2").innerHTML = "";
   document.getElementById("div3").innerHTML = "";
+  //we need to reset vertSplit or else the number will be held in memory even after we clear layout
+  vertSplit = 0;
 }
 
 function save() {
@@ -138,6 +140,7 @@ function chooseDiv() {
   }
 }
 
+/*used for creating new nodes; apparently, we can't re-use the same node when appending to a div*/
 function cloneRepository() {
   cloneImg = img.cloneNode(true);
   cloneImg2 = img.cloneNode(true);
@@ -149,12 +152,13 @@ function splitVertical() {
   vertSplit++;
   //clear the html before creating the inner divs
   /*if no clear is done, divs will stack vertically each time user clicks on a split button*/
+  if (vertSplit === 1) {
+    document.getElementById(currentDiv).innerHTML = "";
+  }
   if (horSplit > 0) {
     document.getElementById(currentDiv).innerHTML = "";
   }
-  //create new divs
-  // leftVertDiv = cloneImg;
-  // rightVertDiv = cloneImg;
+  
   leftVertDiv = document.createElement("div");
   rightVertDiv = document.createElement("div");
 
