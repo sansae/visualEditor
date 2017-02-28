@@ -67,6 +67,8 @@ function clearLayout() {
   document.getElementById("div3").innerHTML = "";
   //we need to reset vertSplit or else the number will be held in memory even after we clear layout
   vertSplit = 0;
+
+  //we need a way to rid the layout area of any images that have been dropped in; currently, after user drops an image and clears layout, when the user clicks splitVertical, the image reappears
 }
 
 function save() {
@@ -158,14 +160,14 @@ function splitVertical() {
   if (horSplit > 0) {
     document.getElementById(currentDiv).innerHTML = "";
   }
-  
+
   leftVertDiv = document.createElement("div");
   rightVertDiv = document.createElement("div");
 
   //if cell is empty, let user split it if they want
   //but how do we find out if cell is "empty"?
 
-  //append image onto divs
+  // //append image onto divs
   leftVertDiv.append(cloneImg);
   rightVertDiv.append(cloneImg2);
 

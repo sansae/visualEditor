@@ -11,19 +11,23 @@ h3 {
 }
 
 .line {
-  margin-top:-15px;
+  margin-top: 10px;
+}
+
+.secondLine {
+  margin-top: -18px;
 }
 
 hr {
   width: 80%;
   height: 1px;
   background: #fff;
-  border-color: black;
-  background-color: black;
+  border-color: #b3b3b3;
+  background-color: #b3b3b3;
 }
 
 .action {
-  background-color:blue;
+  background-color: #b3b3b3;
   margin: 0px 20px 20px 20px;
   padding: 30px 0px 30px 30px;
 }
@@ -54,9 +58,8 @@ hr {
   width: 400px;
 }
 
-.editor, img, .layout div, .action {
-  border: 1px solid black;
-  /*border-radius: 15px;*/
+img, .layout div, .action {
+  border: 2px solid #b3b3b3;
 }
 
 .layout div {
