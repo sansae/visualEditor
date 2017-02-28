@@ -1,8 +1,10 @@
-var cell;
-var layoutTarget;
+var cell, layoutTarget, opt, data, img, cloneImg, cloneImg2, leftVertDiv, rightVertDiv;
 var currentLayout = {cell1: "", cell2: "", cell3: "", layoutName: ""};
 var savedLayouts = [];
-var opt;
+/*we need variables to keep track of splits; this way we can allow multiple splits while allowing the user to switch from vertical to horizontal and vice versa; this sort of acts like a "marker"; the reason we need this is so that we can clear the div and make way for a new split, either hor or vert*/
+var vertSplit = 0;
+var horSplit = 0;
+var currentDiv;
 
 function allowDrop(ev) {
   ev.preventDefault();
@@ -15,26 +17,25 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
 
-  var data = ev.dataTransfer.getData("text");
+  data = ev.dataTransfer.getData("text");
   //get the image being dragged
-  var img = document.getElementById(data);
+  img = document.getElementById(data);
   //clone the image that is dragged
-  var cloneImg = img.cloneNode(true);
+  cloneImg = img.cloneNode(true);
   //appendChild() inserts the cloned node to the document
   ev.target.appendChild(cloneImg);
 
-  //display alert message after drop
-  // alert("drop was successful! " + data + " " + ev.target.id);
-
   if (ev.target.id === "div1") {
     // alert("target equals div1")
-    // alert(data + " was dropped into " + ev.target.id);
     currentLayout.cell1 = data;
   } else if (ev.target.id === "div2") {
     currentLayout.cell2 = data;
-  } else {
+  } else if (ev.target.id === "div3"){
     currentLayout.cell3 = data;
   }
+
+  //display alert message after drop
+  // alert("drop was successful! " + data + " was dropped into " + ev.target.id);
 }
 
 function addCell() {
@@ -123,11 +124,6 @@ function load() {
 /**************************/
 /********SPLIT DIVS********/
 /**************************/
-/*we need variables to keep track of splits; this way we can allow multiple splits while allowing the user to switch from vertical to horizontal and vice versa; this sort of acts like a "marker"; the reason we need this is so that we can clear the div and make way for a new split, either hor or vert*/
-var vertSplit = 0;
-var horSplit = 0;
-var currentDiv;
-
 function chooseDiv() {
   currentDiv;
 
@@ -137,34 +133,41 @@ function chooseDiv() {
     currentDiv = "div1";
   } else if (dropDownValue === "cell2") {
     currentDiv = "div2";
-  } else {
+  } else if (dropDownValue === "cell3") {
     currentDiv = "div3";
   }
 }
 
-function unSplit() {
-  chooseDiv();
-  document.getElementById(currentDiv).innerHTML = "";
-  //when we unsplit the cell, we want to re-append the original image back on their
-  //we need to figure out if the current selected cell is split or not; we might want to use the vertSplit and horSplit values to do this
+function cloneRepository() {
+  cloneImg = img.cloneNode(true);
+  cloneImg2 = img.cloneNode(true);
 }
 
 function splitVertical() {
-  // alert("you pressed the split vert btn");
   chooseDiv();
+  cloneRepository();
   vertSplit++;
   //clear the html before creating the inner divs
   /*if no clear is done, divs will stack vertically each time user clicks on a split button*/
   if (horSplit > 0) {
     document.getElementById(currentDiv).innerHTML = "";
   }
-
   //create new divs
-  var leftVertDiv = document.createElement("div");
-  var rightVertDiv = document.createElement("div");
+  // leftVertDiv = cloneImg;
+  // rightVertDiv = cloneImg;
+  leftVertDiv = document.createElement("div");
+  rightVertDiv = document.createElement("div");
+
+  //if cell is empty, let user split it if they want
+  //but how do we find out if cell is "empty"?
+
+  //append image onto divs
+  leftVertDiv.append(cloneImg);
+  rightVertDiv.append(cloneImg2);
+
   //style divs
-  leftVertDiv.style.cssText = "width: 60px; height: 120px; border: 1px solid black";
-  rightVertDiv.style.cssText = "width: 60px; height: 120px; border: 1px solid black";
+  leftVertDiv.style.cssText = "width: 60px; height: 120px; border: .5px solid black";
+  rightVertDiv.style.cssText = "width: 60px; height: 120px; border: .5px solid black;";
 
   /*gives a side by side look for the inner divs*/
   leftVertDiv.style.display = "inline-block";
@@ -178,6 +181,37 @@ function splitVertical() {
   document.getElementById(currentDiv).appendChild(rightVertDiv);
   horSplit = 0;
 }
+
+// //this fn works, but only for splitting empty divs
+// function splitVertical() {
+//   // alert("you pressed the split vert btn");
+//   chooseDiv();
+//   vertSplit++;
+//   //clear the html before creating the inner divs
+//   /*if no clear is done, divs will stack vertically each time user clicks on a split button*/
+//   if (horSplit > 0) {
+//     document.getElementById(currentDiv).innerHTML = "";
+//   }
+//
+//   //create new divs
+//   var leftVertDiv = document.createElement("div");
+//   var rightVertDiv = document.createElement("div");
+//   //style divs
+//   leftVertDiv.style.cssText = "width: 60px; height: 120px; border: 1px solid black";
+//   rightVertDiv.style.cssText = "width: 60px; height: 120px; border: 1px solid black";
+//
+//   /*gives a side by side look for the inner divs*/
+//   leftVertDiv.style.display = "inline-block";
+//   /*removes space between the two inner divs; the small space is a result of using inline-block display*/
+//   leftVertDiv.style.display = "table-cell";
+//   rightVertDiv.style.display = "inline-block";
+//   rightVertDiv.style.display = "table-cell";
+//
+//   //append div to dom
+//   document.getElementById(currentDiv).appendChild(leftVertDiv);
+//   document.getElementById(currentDiv).appendChild(rightVertDiv);
+//   horSplit = 0;
+// }
 
 function splitHorizontal() {
   chooseDiv();
@@ -218,5 +252,14 @@ function splitHorizontal() {
 // ev.currentTarget.replaceChild(cloneImg, targetDiv);
 // originalDiv.appendChild(cloneImg);
 
-//Issue 2
+//Issue 3
+/*user drops image onto all three cells and saves layout 1, then creates and saves a new layout 2 with images in cell1 and cell3; when loading layout 2, the image in cell3 will not appear*/
+
+//Issue 4
+/*user drops image onto cell2 and cell3 and saves layout 1, then creates and saves a new layout 2 with images in cell1 and cell 3; when loading layout 2, the images will not appear at all*/
+
+//Issue 5
+/*splitVertical (with an image in a cell) only works if it is the second button that is pressed; in other words, for splitVertical to work as expected, the user has to press splitHorizontal first before pressing splitVertical*/
+
+//Issue 2 (issue went away; not sure why)
 /*when user drops image from pallet onto layout, say cell1, and the user drops another image on top of cell1, that image will appear in cell3, regardless of whether cell2 or cell3 are occupied or not, if the user 1) saves the current layout (after doing the 2nd drop on cell1), and 2) loads the layout; don't know why this is happening; try looking at drop function*/
